@@ -1,0 +1,46 @@
+basePath: /api
+definitions:
+  handlers.ErrorResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  handlers.Student:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: hongphucle1010@gmail.com
+    name: HCMUT Team at Fsoft
+  description: This is a sample server Student Management System.
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Student Management System API
+  version: "1.0"
+paths:
+  /students/:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a student
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.Student'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+      summary: Get students
+      tags:
+      - students
+swagger: "2.0"

@@ -1,0 +1,9 @@
+@echo off
+echo [CLEAN] Removing existing docs folder...
+rmdir /s /q docs 2>nul
+
+echo [SWAG] Generating new Swagger docs...
+swag init
+
+echo [BUILD] Building Go application...
+go build -o sms.exe main.go
