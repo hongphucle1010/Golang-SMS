@@ -1,9 +1,12 @@
 package routes
 
 import (
+	"sms/app/controller"
+
 	"github.com/iris-contrib/swagger/v12"
 	"github.com/iris-contrib/swagger/v12/swaggerFiles"
 	"github.com/kataras/iris/v12"
+	"github.com/kataras/iris/v12/mvc"
 )
 
 func Register(app *iris.Application) {
@@ -12,9 +15,10 @@ func Register(app *iris.Application) {
 			URL: "http://" + ctx.Host() + "/swagger/doc.json",
 		}, swaggerFiles.Handler)(ctx)
 	})
-	
+
 	api := app.Party("/api")
-	RegisterPingRoutes(api)
-	RegisterStudentRoutes(api)
-	RegisterTestRoutes(api)
+
+	mvc.New(api.Party("/ping")).Handle(new(controller.PingController))
+	mvc.New(api.Party("/students")).Handle(new(controller.StudentController))
+	mvc.New(api.Party("/test")).Handle(new(controller.TestController))
 }

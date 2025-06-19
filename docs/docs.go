@@ -21,7 +21,7 @@ const docTemplate = `{
     "paths": {
         "/students/": {
             "get": {
-                "description": "Get details of a student",
+                "description": "Get all students",
                 "consumes": [
                     "application/json"
                 ],
@@ -31,18 +31,18 @@ const docTemplate = `{
                 "tags": [
                     "students"
                 ],
-                "summary": "Get students",
+                "summary": "Get all students",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/handlers.Student"
+                            "$ref": "#/definitions/model.Student"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/handlers.ErrorResponse"
+                            "$ref": "#/definitions/response.ErrorResponse"
                         }
                     }
                 }
@@ -50,15 +50,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "handlers.ErrorResponse": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string"
-                }
-            }
-        },
-        "handlers.Student": {
+        "model.Student": {
             "type": "object",
             "properties": {
                 "email": {
@@ -69,6 +61,31 @@ const docTemplate = `{
                 },
                 "name": {
                     "type": "string"
+                }
+            }
+        },
+        "response.ErrorDetail": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "details": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "response.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "$ref": "#/definitions/response.ErrorDetail"
+                },
+                "success": {
+                    "type": "boolean"
                 }
             }
         }

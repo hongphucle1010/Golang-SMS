@@ -1,11 +1,6 @@
 basePath: /api
 definitions:
-  handlers.ErrorResponse:
-    properties:
-      message:
-        type: string
-    type: object
-  handlers.Student:
+  model.Student:
     properties:
       email:
         type: string
@@ -13,6 +8,22 @@ definitions:
         type: integer
       name:
         type: string
+    type: object
+  response.ErrorDetail:
+    properties:
+      code:
+        type: integer
+      details:
+        type: string
+      message:
+        type: string
+    type: object
+  response.ErrorResponse:
+    properties:
+      error:
+        $ref: '#/definitions/response.ErrorDetail'
+      success:
+        type: boolean
     type: object
 host: localhost:8080
 info:
@@ -28,19 +39,19 @@ paths:
     get:
       consumes:
       - application/json
-      description: Get details of a student
+      description: Get all students
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/handlers.Student'
+            $ref: '#/definitions/model.Student'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/handlers.ErrorResponse'
-      summary: Get students
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Get all students
       tags:
       - students
 swagger: "2.0"

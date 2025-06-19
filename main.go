@@ -21,10 +21,17 @@ import (
 // @host localhost:8080
 // @BasePath /api
 func main() {
-	app := iris.New()
+	// Initialize config
 	config.InitConfig()
+
+	// Initialize Iris
+	app := iris.New()
+	app.Use(middleware.Recover)
 	app.Use(middleware.Logger)
 
+	// Register routes
 	routes.Register(app)
+
+	// Start server
 	app.Listen(":" + viper.GetString("server.port"))
 }
