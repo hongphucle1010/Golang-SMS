@@ -26,5 +26,6 @@ go install github.com/githubnemo/CompileDaemon@latest
 
 Chạy project với CompileDaemon
 ```bash
-CompileDaemon --command=./sms
+./daemon.sh     # Linux
+./daemon.bat    # Windows
 ```
