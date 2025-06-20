@@ -2,6 +2,7 @@ package routes
 
 import (
 	"sms/app/controller"
+	"sms/app/repository"
 	"sms/app/service"
 
 	"github.com/iris-contrib/swagger/v12"
@@ -19,7 +20,10 @@ func Register(app *iris.Application) {
 
 	api := app.Party("/api")
 
-	mvc.New(api.Party("/ping")).Handle(new(controller.PingController)).Register(&service.PingService{})
-	mvc.New(api.Party("/students")).Handle(new(controller.StudentController)).Register(&service.StudentService{})
-	mvc.New(api.Party("/test")).Handle(new(controller.TestController)).Register(&service.TestService{})
+	mvc.New(api.Party("/ping")).Register(service.NewPingService).Handle(new(controller.PingController))
+	mvc.New(api.Party("/students")).Register(
+		repository.NewJsonStudentRepository,
+		service.NewStudentService,
+	).Handle(new(controller.StudentController))
+	mvc.New(api.Party("/test")).Register(&service.TestService{}).Handle(new(controller.TestController))
 }

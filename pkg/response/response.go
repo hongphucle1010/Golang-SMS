@@ -1,7 +1,7 @@
 package response
 
 // SuccessResponse represents a successful API response.
-type SuccessResponse struct {
+type SuccessResponse[T any] struct {
 	Message string `json:"message,omitempty"`
-	Data    any    `json:"data,omitempty"`
+	Data    T      `json:"data,omitempty"`
 }

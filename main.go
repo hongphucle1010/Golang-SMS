@@ -27,7 +27,8 @@ func main() {
 	// Initialize Iris
 	app := iris.New()
 	app.Use(middleware.Recover)
-	app.Use(middleware.Logger)
+	// app.Use(middleware.Logger)
+	app.Use(middleware.Cors())
 
 	// Register routes
 	routes.Register(app)

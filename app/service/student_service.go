@@ -1,24 +1,22 @@
 package service
 
-import "sms/app/model"
+import (
+	"sms/app/model"
+	"sms/app/repository"
+)
 
 type IStudentService interface {
 	GetAllStudents() ([]model.Student, error)
 }
 
-type StudentService struct{}
+type StudentService struct {
+	repository repository.IStudentRepository
+}
+
+func NewStudentService(repository repository.IStudentRepository) IStudentService {
+	return &StudentService{repository}
+}
 
 func (s *StudentService) GetAllStudents() ([]model.Student, error) {
-	return []model.Student{
-		{
-			ID: 1,
-			Name: "John Doe",
-			Email: "john.doe@example.com",
-		},
-		{
-			ID: 2,
-			Name: "Jane Doe",
-			Email: "jane.doe@example.com",
-		},
-	}, nil
+	return s.repository.GetStudents()
 }

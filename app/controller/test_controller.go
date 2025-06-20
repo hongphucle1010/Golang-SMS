@@ -16,7 +16,7 @@ type TestController struct {
 // @Description Get test
 // @Tags test
 // @Produce  json
-// @Success 200 {object} response.SuccessResponse
+// @Success 200 {object} response.SuccessResponse[any]
 // @Failure 404 {object} response.ErrorResponse
 // @Router /test/ [get]
 func (c *TestController) Get() mvc.Result {
@@ -31,7 +31,7 @@ func (c *TestController) Get() mvc.Result {
 	return mvc.Response{
 		Code:        iris.StatusOK,
 		ContentType: response.JsonContentType,
-		Object: response.SuccessResponse{
+		Object: response.SuccessResponse[any]{
 			Message: "Successfully fetched test",
 			Data:    test,
 		},

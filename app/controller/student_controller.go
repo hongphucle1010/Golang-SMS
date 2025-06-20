@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"sms/app/model"
 	"sms/app/service"
 	"sms/pkg/response"
 
@@ -16,7 +17,7 @@ type StudentController struct {
 // @Description Get all students
 // @Tags students
 // @Produce  json
-// @Success 200 {object} model.Student
+// @Success 200 {object} response.SuccessResponse[[]model.Student]
 // @Failure 404 {object} response.ErrorResponse
 // @Router /students/ [get]
 func (c *StudentController) Get() mvc.Result {
@@ -29,7 +30,7 @@ func (c *StudentController) Get() mvc.Result {
 		}
 	}
 
-	successResponse := response.SuccessResponse{
+	successResponse := response.SuccessResponse[[]model.Student]{
 		Message: "Successfully fetched students",
 		Data:    students,
 	}

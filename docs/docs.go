@@ -33,7 +33,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.SuccessResponse"
+                            "$ref": "#/definitions/response.SuccessResponse-any"
                         }
                     },
                     "404": {
@@ -59,7 +59,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/model.Student"
+                            "$ref": "#/definitions/response.SuccessResponse-array_model_Student"
                         }
                     },
                     "404": {
@@ -85,7 +85,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.SuccessResponse"
+                            "$ref": "#/definitions/response.SuccessResponse-any"
                         }
                     },
                     "404": {
@@ -102,8 +102,14 @@ const docTemplate = `{
         "model.Student": {
             "type": "object",
             "properties": {
+                "dob": {
+                    "type": "string"
+                },
                 "email": {
                     "type": "string"
+                },
+                "gpa": {
+                    "type": "number"
                 },
                 "id": {
                     "type": "integer"
@@ -127,10 +133,24 @@ const docTemplate = `{
                 }
             }
         },
-        "response.SuccessResponse": {
+        "response.SuccessResponse-any": {
             "type": "object",
             "properties": {
                 "data": {},
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "response.SuccessResponse-array_model_Student": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.Student"
+                    }
+                },
                 "message": {
                     "type": "string"
                 }

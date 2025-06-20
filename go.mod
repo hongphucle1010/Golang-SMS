@@ -4,6 +4,7 @@ go 1.24.4
 
 require (
 	github.com/fsnotify/fsnotify v1.8.0
+	github.com/iris-contrib/middleware/cors v0.0.0-20250207234507-372f6828ef8c
 	github.com/iris-contrib/swagger/v12 v12.2.0-alpha
 	github.com/joho/godotenv v1.5.1
 	github.com/kataras/iris/v12 v12.2.11
@@ -35,7 +36,7 @@ require (
 	github.com/gomarkdown/markdown v0.0.0-20250311123330-531bef5e742b // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/css v1.0.1 // indirect
-	github.com/gorilla/websocket v1.5.1 // indirect
+	github.com/gorilla/websocket v1.5.3 // indirect
 	github.com/iris-contrib/schema v0.0.6 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/kataras/blocks v0.0.11 // indirect
