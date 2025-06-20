@@ -19,12 +19,35 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/ping/": {
+            "get": {
+                "description": "Ping to get pong",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ping"
+                ],
+                "summary": "Health check",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.SuccessResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/students/": {
             "get": {
                 "description": "Get all students",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -37,6 +60,32 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/model.Student"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/test/": {
+            "get": {
+                "description": "Get test",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "test"
+                ],
+                "summary": "Get test",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.SuccessResponse"
                         }
                     },
                     "404": {
@@ -64,7 +113,7 @@ const docTemplate = `{
                 }
             }
         },
-        "response.ErrorDetail": {
+        "response.ErrorResponse": {
             "type": "object",
             "properties": {
                 "code": {
@@ -78,14 +127,12 @@ const docTemplate = `{
                 }
             }
         },
-        "response.ErrorResponse": {
+        "response.SuccessResponse": {
             "type": "object",
             "properties": {
-                "error": {
-                    "$ref": "#/definitions/response.ErrorDetail"
-                },
-                "success": {
-                    "type": "boolean"
+                "data": {},
+                "message": {
+                    "type": "string"
                 }
             }
         }

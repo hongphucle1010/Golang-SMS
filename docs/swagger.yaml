@@ -9,7 +9,7 @@ definitions:
       name:
         type: string
     type: object
-  response.ErrorDetail:
+  response.ErrorResponse:
     properties:
       code:
         type: integer
@@ -18,12 +18,11 @@ definitions:
       message:
         type: string
     type: object
-  response.ErrorResponse:
+  response.SuccessResponse:
     properties:
-      error:
-        $ref: '#/definitions/response.ErrorDetail'
-      success:
-        type: boolean
+      data: {}
+      message:
+        type: string
     type: object
 host: localhost:8080
 info:
@@ -35,10 +34,25 @@ info:
   title: Swagger Student Management System API
   version: "1.0"
 paths:
+  /ping/:
+    get:
+      description: Ping to get pong
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Health check
+      tags:
+      - ping
   /students/:
     get:
-      consumes:
-      - application/json
       description: Get all students
       produces:
       - application/json
@@ -54,4 +68,21 @@ paths:
       summary: Get all students
       tags:
       - students
+  /test/:
+    get:
+      description: Get test
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Get test
+      tags:
+      - test
 swagger: "2.0"
