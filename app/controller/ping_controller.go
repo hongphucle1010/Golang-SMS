@@ -17,23 +17,20 @@ type PingController struct{
 // @Tags ping
 // @Produce  json
 // @Success 200 {object} response.SuccessResponse[any]
-// @Failure 404 {object} response.ErrorResponse
+// @Failure 500 {object} response.ErrorResponse
 // @Router /ping/ [get]
-func (c *PingController) Get() (mvc.Result, mvc.Err) {
+func (c *PingController) Get() mvc.Result {
 	message, err := c.PingService.Pong()
 	if err != nil {
-		return mvc.Response{
-			Code: iris.StatusInternalServerError,
-			ContentType: response.JsonContentType,
-			Object: response.ErrorResponse{Message: "Failed to ping", Details: err.Error()},
-		}, nil
+		return response.ErrorResponse{
+            Code:    iris.StatusInternalServerError,
+            Message: "Failed to ping",
+            Details: err.Error(),
+        }
 	}
-	return mvc.Response{
-		Code: iris.StatusOK,
-		ContentType: response.JsonContentType,
-		Object: response.SuccessResponse[any]{
-			Message: "Successfully pinged",
-			Data:    iris.Map{"message": message},
-		},
-	}, nil
+	return response.SuccessResponse[any]{
+		Code:    iris.StatusOK,
+		Message: "Successfully pinged",
+		Data:    iris.Map{"message": message},
+	}
 }

@@ -17,23 +17,20 @@ type TestController struct {
 // @Tags test
 // @Produce  json
 // @Success 200 {object} response.SuccessResponse[any]
-// @Failure 404 {object} response.ErrorResponse
+// @Failure 500 {object} response.ErrorResponse
 // @Router /test/ [get]
 func (c *TestController) Get() mvc.Result {
 	test, err := c.TestService.GetTest()
 	if err != nil {
-		return mvc.Response{
-			Code:        iris.StatusInternalServerError,
-			ContentType: response.JsonContentType,
-			Object:      response.ErrorResponse{Message: "Failed to fetch test", Details: err.Error()},
-		}
+		return response.ErrorResponse{
+            Code:    iris.StatusInternalServerError,
+            Message: "Failed to fetch test",
+            Details: err.Error(),
+        }
 	}
-	return mvc.Response{
-		Code:        iris.StatusOK,
-		ContentType: response.JsonContentType,
-		Object: response.SuccessResponse[any]{
-			Message: "Successfully fetched test",
-			Data:    test,
-		},
+	return response.SuccessResponse[any]{
+		Code:    iris.StatusOK,
+		Message: "Successfully fetched test",
+		Data:    test,
 	}
 }

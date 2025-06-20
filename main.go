@@ -10,15 +10,14 @@ import (
 	"github.com/spf13/viper"
 )
 
-// @title Swagger Student Management System API
+// @title Swagger UI Hệ thống quản lý sinh viên
 // @version 1.0
-// @description This is a sample server Student Management System.
+// @description Tài liệu API của hệ thống quản lý sinh viên
 // @termsOfService http://swagger.io/terms/
 
-// @contact.name HCMUT Team at Fsoft
+// @contact.name HCMUT Team tại FPT Software HCM
 // @contact.email hongphucle1010@gmail.com
 
-// @host localhost:8080
 // @BasePath /api
 func main() {
 	// Initialize config
@@ -27,7 +26,7 @@ func main() {
 	// Initialize Iris
 	app := iris.New()
 	app.Use(middleware.Recover)
-	// app.Use(middleware.Logger)
+	app.Use(middleware.Logger)
 	app.Use(middleware.Cors())
 
 	// Register routes

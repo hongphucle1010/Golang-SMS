@@ -11,7 +11,7 @@ const docTemplate = `{
         "title": "{{.Title}}",
         "termsOfService": "http://swagger.io/terms/",
         "contact": {
-            "name": "HCMUT Team at Fsoft",
+            "name": "HCMUT Team tại FPT Software HCM",
             "email": "hongphucle1010@gmail.com"
         },
         "version": "{{.Version}}"
@@ -36,8 +36,8 @@ const docTemplate = `{
                             "$ref": "#/definitions/response.SuccessResponse-any"
                         }
                     },
-                    "404": {
-                        "description": "Not Found",
+                    "500": {
+                        "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/response.ErrorResponse"
                         }
@@ -62,8 +62,8 @@ const docTemplate = `{
                             "$ref": "#/definitions/response.SuccessResponse-array_model_Student"
                         }
                     },
-                    "404": {
-                        "description": "Not Found",
+                    "500": {
+                        "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/response.ErrorResponse"
                         }
@@ -88,8 +88,8 @@ const docTemplate = `{
                             "$ref": "#/definitions/response.SuccessResponse-any"
                         }
                     },
-                    "404": {
-                        "description": "Not Found",
+                    "500": {
+                        "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/response.ErrorResponse"
                         }
@@ -162,11 +162,11 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:8080",
+	Host:             "",
 	BasePath:         "/api",
 	Schemes:          []string{},
-	Title:            "Swagger Student Management System API",
-	Description:      "This is a sample server Student Management System.",
+	Title:            "Swagger UI Hệ thống quản lý sinh viên",
+	Description:      "Tài liệu API của hệ thống quản lý sinh viên",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

@@ -18,26 +18,21 @@ type StudentController struct {
 // @Tags students
 // @Produce  json
 // @Success 200 {object} response.SuccessResponse[[]model.Student]
-// @Failure 404 {object} response.ErrorResponse
+// @Failure 500 {object} response.ErrorResponse
 // @Router /students/ [get]
 func (c *StudentController) Get() mvc.Result {
 	students, err := c.StudentService.GetAllStudents()
 	if err != nil {
-		return mvc.Response{
-			Code:        iris.StatusInternalServerError,
-			ContentType: response.JsonContentType,
-			Object:      response.ErrorResponse{Message: "Failed to fetch students", Details: err.Error()},
-		}
+        return response.ErrorResponse{
+            Code:    iris.StatusInternalServerError,
+            Message: "Failed to fetch students",
+            Details: err.Error(),
+        }
 	}
 
-	successResponse := response.SuccessResponse[[]model.Student]{
+	return response.SuccessResponse[[]model.Student]{
+		Code:    iris.StatusOK,
 		Message: "Successfully fetched students",
 		Data:    students,
-	}
-
-	return mvc.Response{
-		Code:        iris.StatusOK,
-		ContentType: response.JsonContentType,
-		Object:      successResponse,
 	}
 }
