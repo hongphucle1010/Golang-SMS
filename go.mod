@@ -9,6 +9,7 @@ require (
 	github.com/joho/godotenv v1.5.1
 	github.com/kataras/iris/v12 v12.2.11
 	github.com/spf13/viper v1.20.1
+	github.com/stretchr/testify v1.10.0
 	github.com/swaggo/swag v1.16.4
 )
 
@@ -22,6 +23,7 @@ require (
 	github.com/andybalholm/brotli v1.1.1 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fatih/structs v1.1.0 // indirect
 	github.com/flosch/pongo2/v4 v4.0.2 // indirect
 	github.com/go-openapi/jsonpointer v0.21.1 // indirect
@@ -54,6 +56,7 @@ require (
 	github.com/nats-io/nkeys v0.4.7 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.3 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/sagikazarmark/locafero v0.7.0 // indirect
 	github.com/schollz/closestmatch v2.1.0+incompatible // indirect
