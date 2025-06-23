@@ -9,6 +9,7 @@ import (
 )
 
 type PingController struct{
+	Ctx iris.Context
 	PingService service.IPingService	
 }
 

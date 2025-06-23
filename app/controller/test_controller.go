@@ -9,6 +9,7 @@ import (
 )
 
 type TestController struct {
+	Ctx iris.Context
 	TestService service.ITestService
 }
 

@@ -25,12 +25,11 @@ func main() {
 
 	// Initialize Iris
 	app := iris.New()
-	app.Use(middleware.Recover)
-	app.Use(middleware.Logger)
-	app.Use(middleware.Cors())
+	app.Use(middleware.Recover)				// Recover from panics
+	app.Use(middleware.Logger)				// Log requests
+	app.Use(middleware.Cors())				// Handle CORS
 
-	// Register routes
-	routes.Register(app)
+	routes.Register(app)					// Register routes	
 
 	// Start server
 	app.Listen(":" + viper.GetString("server.port"))

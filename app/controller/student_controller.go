@@ -10,6 +10,7 @@ import (
 )
 
 type StudentController struct {
+	Ctx iris.Context
 	StudentService service.IStudentService
 }
 

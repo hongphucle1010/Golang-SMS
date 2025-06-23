@@ -5,18 +5,13 @@ import (
 	"sms/app/repository"
 	"sms/app/service"
 
-	"github.com/iris-contrib/swagger/v12"
-	"github.com/iris-contrib/swagger/v12/swaggerFiles"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/mvc"
 )
 
 func Register(app *iris.Application) {
-	app.Get("/swagger/{any:path}", func(ctx iris.Context) {
-		swagger.CustomWrapHandler(&swagger.Config{
-			URL: "http://" + ctx.Host() + "/swagger/doc.json",
-		}, swaggerFiles.Handler)(ctx)
-	})
+	PreflightHandler(app)				// Register Preflight Handler
+	RegisterSwagger(app)				// Register Swagger
 
 	api := app.Party("/api")
 
