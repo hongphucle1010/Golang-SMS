@@ -8,9 +8,9 @@ import (
 	"github.com/kataras/iris/v12/mvc"
 )
 
-type PingController struct{
-	Ctx iris.Context
-	PingService service.IPingService	
+type PingController struct {
+	Ctx         iris.Context
+	PingService service.IPingService
 }
 
 // @Summary Health check
@@ -24,10 +24,10 @@ func (c *PingController) Get() mvc.Result {
 	message, err := c.PingService.Pong()
 	if err != nil {
 		return response.ErrorResponse{
-            Code:    iris.StatusInternalServerError,
-            Message: "Failed to ping",
-            Details: err.Error(),
-        }
+			Code:    iris.StatusInternalServerError,
+			Message: "Failed to ping",
+			Details: err.Error(),
+		}
 	}
 	return response.SuccessResponse[any]{
 		Code:    iris.StatusOK,

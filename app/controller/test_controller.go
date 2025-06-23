@@ -9,12 +9,12 @@ import (
 )
 
 type TestController struct {
-	Ctx iris.Context
+	Ctx         iris.Context
 	TestService service.ITestService
 }
 
-// @Summary Get test
-// @Description Get test
+// @Summary Experimenting API
+// @Description This API is just used for experimenting
 // @Tags test
 // @Produce  json
 // @Success 200 {object} response.SuccessResponse[any]
@@ -24,10 +24,10 @@ func (c *TestController) Get() mvc.Result {
 	test, err := c.TestService.GetTest()
 	if err != nil {
 		return response.ErrorResponse{
-            Code:    iris.StatusInternalServerError,
-            Message: "Failed to fetch test",
-            Details: err.Error(),
-        }
+			Code:    iris.StatusInternalServerError,
+			Message: "Failed to fetch test",
+			Details: err.Error(),
+		}
 	}
 	return response.SuccessResponse[any]{
 		Code:    iris.StatusOK,

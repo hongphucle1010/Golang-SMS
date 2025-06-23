@@ -47,7 +47,7 @@ const docTemplate = `{
         },
         "/students/": {
             "get": {
-                "description": "Get all students",
+                "description": "Get all students with optional filtering, sorting, and pagination",
                 "produces": [
                     "application/json"
                 ],
@@ -55,11 +55,239 @@ const docTemplate = `{
                     "students"
                 ],
                 "summary": "Get all students",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Filter by name",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by email",
+                        "name": "email",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "description": "Minimum GPA",
+                        "name": "min_gpa",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "description": "Maximum GPA",
+                        "name": "max_gpa",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sort by field (name, gpa)",
+                        "name": "sort_by",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sort order (asc, desc)",
+                        "name": "sort_order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number (starts from 0)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page size",
+                        "name": "page_size",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.SuccessResponse-array_model_Student"
+                            "$ref": "#/definitions/response.SuccessResponse-model_PaginatedResponse-model_Student"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Add a new student",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "students"
+                ],
+                "summary": "Create a new student",
+                "parameters": [
+                    {
+                        "description": "Student to add",
+                        "name": "student",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateStudentRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/response.SuccessResponse-model_Student"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/students/{id}": {
+            "get": {
+                "description": "Get a student by their ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "students"
+                ],
+                "summary": "Get student by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Student ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.SuccessResponse-model_Student"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update a student by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "students"
+                ],
+                "summary": "Update a student",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Student ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Student data to update",
+                        "name": "student",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Student"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.SuccessResponse-model_Student"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete a student by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "students"
+                ],
+                "summary": "Delete a student",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Student ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
                         }
                     },
                     "500": {
@@ -73,14 +301,14 @@ const docTemplate = `{
         },
         "/test/": {
             "get": {
-                "description": "Get test",
+                "description": "This API is just used for experimenting",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "test"
                 ],
-                "summary": "Get test",
+                "summary": "Experimenting API",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -99,23 +327,75 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "model.CreateStudentRequest": {
+            "type": "object",
+            "required": [
+                "dob",
+                "email",
+                "gpa",
+                "name"
+            ],
+            "properties": {
+                "dob": {
+                    "type": "string",
+                    "example": "2004-10-10T00:00:00Z"
+                },
+                "email": {
+                    "type": "string",
+                    "example": "hongphucle1010@gmail.com"
+                },
+                "gpa": {
+                    "type": "number",
+                    "example": 4
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Le Hong Phuc"
+                }
+            }
+        },
+        "model.PaginatedResponse-model_Student": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.Student"
+                    }
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "page_size": {
+                    "type": "integer"
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
         "model.Student": {
             "type": "object",
             "properties": {
                 "dob": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "2004-10-10T00:00:00Z"
                 },
                 "email": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "hongphucle1010@gmail.com"
                 },
                 "gpa": {
-                    "type": "number"
+                    "type": "number",
+                    "example": 4
                 },
                 "id": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 220000
                 },
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Le Hong Phuc"
                 }
             }
         },
@@ -142,14 +422,22 @@ const docTemplate = `{
                 }
             }
         },
-        "response.SuccessResponse-array_model_Student": {
+        "response.SuccessResponse-model_PaginatedResponse-model_Student": {
             "type": "object",
             "properties": {
                 "data": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/model.Student"
-                    }
+                    "$ref": "#/definitions/model.PaginatedResponse-model_Student"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "response.SuccessResponse-model_Student": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/model.Student"
                 },
                 "message": {
                     "type": "string"
